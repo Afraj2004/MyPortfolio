@@ -14,15 +14,19 @@ export function ScrollReveal() {
     const targets = document.querySelectorAll<HTMLElement>("[data-reveal]")
     if (!targets.length) return
 
-    document.documentElement.dataset.motionReady = "true"
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const target = entry.target as HTMLElement
+
           if (entry.isIntersecting) {
-            entry.target.setAttribute("data-revealed", "true")
-            observer.unobserve(entry.target)
+            target.setAttribute("data-revealed", "true")
+            target.removeAttribute("data-reveal-pending")
+            observer.unobserve(target)
+            return
           }
+
+          target.setAttribute("data-reveal-pending", "true")
         })
       },
       { threshold: 0.12, rootMargin: "0px 0px -36px 0px" },
@@ -32,7 +36,10 @@ export function ScrollReveal() {
 
     return () => {
       observer.disconnect()
-      delete document.documentElement.dataset.motionReady
+      targets.forEach((target) => {
+        target.removeAttribute("data-reveal-pending")
+        target.removeAttribute("data-revealed")
+      })
     }
   }, [])
 
