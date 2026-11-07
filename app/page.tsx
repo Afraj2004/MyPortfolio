@@ -1,8 +1,11 @@
 import { ArrowUp } from "lucide-react"
 import { portfolioContent } from "@/data/content"
+import { HiringDashboard } from "@/components/gamification/hiring-dashboard"
+import { ProgressProvider } from "@/components/gamification/progress-provider"
 import { SiteHeader } from "@/components/site-header"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { AboutSection } from "@/components/sections/about-section"
+import { CaseStudiesSection } from "@/components/sections/case-studies-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { EducationSection } from "@/components/sections/education-section"
 import { ExperienceSection } from "@/components/sections/experience-section"
@@ -12,12 +15,13 @@ import { SkillsSection } from "@/components/sections/skills-section"
 
 export default function HomePage() {
   return (
-    <>
+    <ProgressProvider>
       <SiteHeader />
       <main id="main-content">
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
+        <CaseStudiesSection />
         <EducationSection />
         <SkillsSection />
         <ProjectsSection />
@@ -33,6 +37,7 @@ export default function HomePage() {
         </div>
       </footer>
       <ScrollReveal />
-    </>
+      <HiringDashboard />
+    </ProgressProvider>
   )
 }
