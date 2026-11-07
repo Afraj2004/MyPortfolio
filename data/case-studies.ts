@@ -4,8 +4,10 @@
 
 export type Metric = {
   label: string
-  /** null = not filled in yet; the UI shows a placeholder instead of a number */
+  /** Count-up number; null when `text` (e.g. a range) is shown instead */
   value: number | null
+  /** Pre-formatted display such as a range; takes precedence over `value` */
+  text?: string
   prefix?: string
   suffix?: string
   decimals?: number
@@ -29,7 +31,7 @@ export const caseStudies: CaseStudy[] = [
     id: "emandate",
     title: "eMandate conversion: fixing a mis-reported metric",
     tag: "Metric definition · Reporting accuracy",
-    headline: { label: "Reported new-user conversion after the logic correction (from ~76% to ~90%)", value: 14, prefix: "+", suffix: " pp" },
+    headline: { label: "Reported new-user conversion after the logic correction", value: null, text: "+10–15 pp" },
     context:
       "Approved borrowers register an **eMandate** (UPI Autopay, debit card or net banking) before disbursal. Weekly OKR reporting showed conversion well below what operations saw on the ground.",
     hypothesis:
@@ -44,16 +46,16 @@ export const caseStudies: CaseStudy[] = [
       test: "Measurement correction, not an experiment",
       alpha: "No significance test applies",
       power: "n/a",
-      result: "Reported: new users ~76% → ~90% (+14 pp), repeat ~74% → ~95% (+21 pp)",
+      result: "Reported conversion rose from the mid-70s to about 90% (new) and about 95% (repeat)",
     },
     impact:
-      "Reported rates moved **+14 pp** (new) and **+21 pp** (repeat) after the calculation was corrected. These are **reporting** changes, so leadership now sees true conversion and can target real drop-off.",
+      "Reported rates rose by roughly **10–15 pp** (new users) and **20–25 pp** (repeat) after the calculation was corrected. These are **reporting** changes, so leadership now sees true conversion and can target real drop-off.",
   },
   {
     id: "mcm-v3",
     title: "Risk-tiered pre-due-date messaging policy (MCM v3)",
     tag: "Collections · Policy analysis",
-    headline: { label: "Scheduled messages per low-risk borrower (18 → 7)", value: 61.1, prefix: "−", suffix: "%", decimals: 1 },
+    headline: { label: "Scheduled messages per borrower, by risk tier", value: null, text: "−15% to −65%" },
     context:
       "Every borrower got the same pre-due-date message schedule. Product moved to a **risk-tiered policy** that sends fewer messages to lower-risk borrowers. I ran the pre-live analysis and the post-live impact readouts.",
     hypothesis:
@@ -71,37 +73,37 @@ export const caseStudies: CaseStudy[] = [
       result: "Confounders: rollout template issues, a legacy SMS campaign, IVR timeouts",
     },
     impact:
-      "Scheduled messages fell **16.7% to 61.1%** by tier. Low-risk cure moved by **under 1 pp**. I flagged a **1.4 to 2.6 pp** cure decline in the medium-risk tier and **recommended adding messages from DPD −3 to −1**.",
+      "Scheduled messages fell by roughly **15–65%** depending on tier. Low-risk cure moved by **under 1 pp**. I flagged a **1–3 pp** cure decline in the medium-risk tier and **recommended adding messages from DPD −3 to −1**.",
   },
   {
     id: "ivr-timeouts",
     title: "Pre-due-date cure decline and IVR timeouts",
     tag: "Collections · Root-cause analysis",
-    headline: { label: "Pre-DPD IVR calls ending in timeout", value: 48, prefix: "~", suffix: "%" },
+    headline: { label: "Pre-due-date IVR calls ending in timeout", value: null, text: "40–50%" },
     context:
-      "Pre-due-date cure (−5 to −1 DPD) fell in early September against August, after changes to messaging coverage and a rise in IVR call failures.",
+      "Pre-due-date cure fell in early September against August, after changes to messaging coverage and a rise in IVR call failures.",
     hypothesis:
       "**H1:** the decline came from **two overlapping causes**, reduced messaging coverage and IVR calls timing out, and not from borrower behaviour.",
     stack: ["**SQL**", "**ClickHouse**", "**Tableau**", "Call-log analysis"],
     metrics: {
-      primary: "**Pre-DPD cure rate** (−5 to −1 DPD)",
+      primary: "**Pre-due-date cure rate**",
       secondary: ["Final cure rate (≤ 0 DPD)", "IVR timeout share of call logs"],
       guardrail: ["Coverage of messaging by borrower tier"],
     },
     stats: {
-      test: "Period comparison, 1–7 Sep vs August (not randomised)",
+      test: "Period comparison, early September vs August (not randomised)",
       alpha: "No significance test run",
       power: "n/a",
-      result: "Pre-DPD cure −1.67 pp; final cure −0.74 pp",
+      result: "Pre-due-date cure fell by 1–2 pp; final cure fell by under 1 pp",
     },
     impact:
-      "Traced the **−1.67 pp** pre-due-date cure drop to coverage gaps and **~48% IVR timeouts**, and gave operations a concrete failure to fix while the team moved pre-due-date calling to a **voice bot**.",
+      "Traced a **1–2 pp** pre-due-date cure drop to coverage gaps and **40–50% IVR timeouts**, and gave operations a concrete failure to fix while the team moved pre-due-date calling to a **voice bot**.",
   },
   {
     id: "bot-data-quality",
     title: "Bot coverage and duplicate call-log fixes",
     tag: "Data quality · Instrumentation",
-    headline: { label: "Active cases pushed to the bot after the ingestion fix (from ~70%)", value: 100, suffix: "%" },
+    headline: { label: "Active cases pushed to the bot after the ingestion fix (up from roughly 70%)", value: 100, suffix: "%" },
     context:
       "Bot-calling metrics looked wrong. Coverage was under-reported and call volumes were inflated, so teams were making decisions on bad numbers.",
     hypothesis:
@@ -116,10 +118,10 @@ export const caseStudies: CaseStudy[] = [
       test: "Reconciliation against source and vendor records",
       alpha: "n/a (data-quality audit)",
       power: "n/a",
-      result: "One user: 100 calls in our database vs 25 in the vendor's records; 92% of users had duplicates on one day",
+      result: "One user showed about 4x more calls in our database than in the vendor's records; over 90% of users had duplicates on one day",
     },
     impact:
-      "Fixed the ingestion gap and raised the API cap from **1,800 to 5,000**, taking pushes from **~70% to 100%** of active cases. Duplicate logs were reported to engineering and corrected so **call-churn metrics** stop overstating volume.",
+      "Fixed the ingestion gap and raised the API cap by nearly **3x**, taking pushes from roughly **70% to 100%** of active cases. Duplicate logs were reported to engineering and corrected so **call-churn metrics** stop overstating volume.",
   },
 ]
 
