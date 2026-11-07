@@ -1,27 +1,13 @@
 # Afraj Khan — Product Analyst Portfolio
 
-Live: https://afraj-khan-portfolio.vercel.app/
+Portfolio of Afraj Khan, a Product Analyst in consumer lending, building toward Product Management in fintech and consumer tech.
 
-Built with Next.js (App Router), React, TypeScript, Tailwind CSS v4 and Framer Motion.
+**Live:** https://afraj-khan-portfolio.vercel.app/
 
-## Structure
+![Portfolio screenshot](docs/screenshot.png)
 
-- `app/` — layout, page, global styles, Open Graph image
-- `components/sections/` — page sections (hero, about, experience, case studies, education, skills, projects, contact)
-- `components/motion/` — count-up, SQL terminal and pipeline graph
-- `components/gamification/` — Hiring Progress meter and its state
-- `components/ui/` — button, card and badge primitives
-- `data/content.ts` — all portfolio copy; `data/case-studies.ts` — case study content
-- `public/images/` — site images
-- `index.html` — redirect for the old GitHub Pages URL
+## Contact
 
-## Develop
-
-```bash
-npm install
-npm run dev     # http://localhost:3000
-npm run lint
-npm run build
-```
-
-Deployed on Vercel from `main`.
+- LinkedIn: https://linkedin.com/in/afraj-khan-x/
+- GitHub: https://github.com/Afraj2004
+- Email: afraj12022004@gmail.com
