@@ -5,16 +5,14 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 // Points sum to 100. Section views are passive; the rest reward interaction.
 export const ACHIEVEMENTS = {
   "view:about": { points: 5, label: "Read the intro" },
-  "view:experience": { points: 10, label: "Scanned experience" },
-  "view:casestudies": { points: 10, label: "Opened case studies" },
+  "view:experience": { points: 15, label: "Scanned experience" },
+  "view:casestudies": { points: 15, label: "Opened case studies" },
   "view:skills": { points: 5, label: "Checked the skill set" },
   "view:projects": { points: 5, label: "Browsed projects" },
-  "case:open": { points: 15, label: "Expanded a case study" },
+  "case:open": { points: 20, label: "Expanded a case study" },
   "case:all": { points: 10, label: "Expanded every case study" },
-  "sql:run": { points: 10, label: "Ran the SQL terminal" },
+  "sql:run": { points: 15, label: "Ran the SQL terminal" },
   "pipeline:click": { points: 10, label: "Explored the pipeline" },
-  "ab:slide": { points: 10, label: "Moved the confidence slider" },
-  "ab:flip": { points: 10, label: "Flipped the A/B verdict" },
 } as const
 
 export type AchievementId = keyof typeof ACHIEVEMENTS
