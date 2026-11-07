@@ -103,7 +103,7 @@ export const portfolioContent = {
         bullets: [
           "Own analytics for the eMandate step (UPI Autopay, debit card, net banking) that approved borrowers complete before loan disbursal.",
           "Attribute onboarding and payment failures to their real cause, whether internal, payment gateway, partner SLA or user, and route them to the right owner.",
-          "Turn root-cause analyses into product and operations changes, such as moving pre-due-date calling from IVR to a voice bot.",
+          "Turn root-cause analyses into product and operations changes, such as diagnosing pre-due-date IVR timeouts while the team moved calling to a voice bot.",
           "Build event funnels and SLA views for the field-agent mobile app across app versions.",
           "Run data-quality checks so teams act on accurate metrics.",
           "Own weekly Collections OKR reporting and support the business team on due diligence.",
