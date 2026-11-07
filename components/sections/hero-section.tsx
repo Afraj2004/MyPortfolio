@@ -22,7 +22,7 @@ export function HeroSection() {
           <p className="hero-role">{hero.role}</p>
           <p className="hero-introduction">{hero.introduction}</p>
           <div className="hero-actions">
-            <a href={hero.resumeHref} className={buttonVariants({ size: "lg" })}>
+            <a href={hero.resumeHref} target="_blank" rel="noopener noreferrer" className={buttonVariants({ size: "lg" })}>
               {hero.resumeLabel}
               <ArrowUpRight aria-hidden="true" data-icon="inline-end" />
             </a>

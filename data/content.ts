@@ -60,7 +60,7 @@ export const portfolioContent = {
     introduction:
       "I work on consumer funnels: finding where users drop out, tracing it to a cause, and turning the fix into a product change.",
     resumeLabel: "Resume",
-    resumeHref: "#",
+    resumeHref: "https://drive.google.com/file/d/1IpjwvXdVGH6btnwRuAR3_-tTg1roms-u/view?usp=drive_link",
     projectsLabel: "Explore projects",
     profileImage: "/images/profile-placeholder.png",
     profileAlt:
