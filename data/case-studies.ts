@@ -53,7 +53,7 @@ export const caseStudies: CaseStudy[] = [
     id: "mcm-v3",
     title: "Risk-tiered pre-due-date messaging policy (MCM v3)",
     tag: "Collections · Policy analysis",
-    headline: { label: "Scheduled messages per low-risk borrower (18 → 10)", value: 44.4, prefix: "−", suffix: "%", decimals: 1 },
+    headline: { label: "Scheduled messages per low-risk borrower (18 → 7)", value: 61.1, prefix: "−", suffix: "%", decimals: 1 },
     context:
       "Every borrower got the same pre-due-date message schedule. Product moved to a **risk-tiered policy** that sends fewer messages to lower-risk borrowers. I ran the pre-live analysis and the post-live impact readouts.",
     hypothesis:
@@ -71,7 +71,7 @@ export const caseStudies: CaseStudy[] = [
       result: "Confounders: rollout template issues, a legacy SMS campaign, IVR timeouts",
     },
     impact:
-      "Scheduled messages fell **16.7% to 44.4%** by tier. Low-risk cure moved by **under 1 pp**. I flagged a **1.4 to 2.6 pp** cure decline in the medium-risk tier and **recommended adding messages from DPD −3 to −1**.",
+      "Scheduled messages fell **16.7% to 61.1%** by tier. Low-risk cure moved by **under 1 pp**. I flagged a **1.4 to 2.6 pp** cure decline in the medium-risk tier and **recommended adding messages from DPD −3 to −1**.",
   },
   {
     id: "ivr-timeouts",
