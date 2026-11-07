@@ -26,6 +26,7 @@ export const portfolioContent = {
       { label: "Home", href: "#home" },
       { label: "About", href: "#about" },
       { label: "Experience", href: "#experience" },
+      { label: "Case Studies", href: "#case-studies" },
       { label: "Education", href: "#education" },
       { label: "Skills", href: "#skills" },
       { label: "Projects", href: "#projects" },
