@@ -25,6 +25,9 @@ export function EducationSection() {
               <CardContent className="education-card-content">
                 <CardTitle>{item.qualification}</CardTitle>
                 <p className="education-institution">{item.institution}</p>
+                {(item as { score?: string }).score ? (
+                  <p className="education-score">{(item as { score?: string }).score}</p>
+                ) : null}
               </CardContent>
             </Card>
           ))}

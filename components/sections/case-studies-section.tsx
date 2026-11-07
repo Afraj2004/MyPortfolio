@@ -5,7 +5,6 @@ import { caseStudies, type Metric } from "@/data/case-studies"
 import { CountUp } from "@/components/motion/count-up"
 import { PipelineGraph } from "@/components/motion/pipeline-graph"
 import { SqlTerminal } from "@/components/motion/sql-terminal"
-import { AbSandbox } from "@/components/sections/ab-sandbox"
 import { useProgress } from "@/components/gamification/progress-provider"
 import { SectionHeading } from "@/components/sections/section-heading"
 
@@ -85,8 +84,6 @@ export function CaseStudiesSection() {
             </details>
           ))}
         </div>
-
-        <AbSandbox />
       </div>
     </section>
   )
