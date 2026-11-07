@@ -1,11 +1,13 @@
 // Case studies follow the Impact-First STAR layout for analytics.
-// Every `value: null` is a number only Afraj can supply (from real work at Olyv).
-// The UI renders null as an "[ add metric ]" chip; nothing here is invented data.
+// Figures below come from an audit of Afraj's own Jira tickets. Anything the audit
+// could not verify has been left out.
 
 export type Metric = {
   label: string
-  /** null = not filled in yet; the UI shows a placeholder instead of a number */
+  /** Count-up number; null when `text` (e.g. a range) is shown instead */
   value: number | null
+  /** Pre-formatted display such as a range; takes precedence over `value` */
+  text?: string
   prefix?: string
   suffix?: string
   decimals?: number
@@ -27,75 +29,99 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     id: "emandate",
-    title: "eMandate completion funnel",
-    tag: "Funnel · Root-cause analysis",
-    headline: { label: "eMandate completion lift", value: null, suffix: "%", decimals: 1 },
+    title: "eMandate conversion: fixing a mis-reported metric",
+    tag: "Metric definition · Reporting accuracy",
+    headline: { label: "Reported new-user conversion after the logic correction", value: null, text: "+10–15 pp" },
     context:
-      "Approved borrowers must register an **eMandate** (UPI Autopay, debit card or net banking) before loan disbursal. Failures here block revenue after acquisition cost is already spent.",
+      "Approved borrowers register an **eMandate** (UPI Autopay, debit card or net banking) before disbursal. Weekly OKR reporting showed conversion well below what operations saw on the ground.",
     hypothesis:
-      "**H1:** most drop-off is attributable to a small number of causes (gateway errors, bank SLA, user abandonment), not to the product flow. Fixing the top cause by volume moves completion more than redesigning the screen.",
-    stack: ["**ClickHouse**", "**SQL window functions**", "Event instrumentation", "**Grafana**"],
+      "**H1:** the dashboard calculation was **under-counting successful mandates**, so the gap was a measurement problem and not a product problem.",
+    stack: ["**SQL**", "**ClickHouse**", "**Tableau**", "OKR reporting"],
     metrics: {
-      primary: "**eMandate completion rate** (approved → mandate registered)",
-      secondary: ["Completion by method (UPI / card / net banking)", "Time-to-complete"],
-      guardrail: ["Disbursal rate", "Failure-reason coverage (% of failures attributed)"],
+      primary: "**eMandate conversion rate** (approved → mandate registered), new and repeat users",
+      secondary: ["Conversion by mandate method"],
+      guardrail: ["Reconciliation against source records"],
     },
     stats: {
-      test: "Two-proportion z-test on before/after or holdout cohorts",
-      alpha: "α = 0.05",
-      power: "Power = [add]",
-      result: "p = [add], 95% CI = [add]",
+      test: "Measurement correction, not an experiment",
+      alpha: "No significance test applies",
+      power: "n/a",
+      result: "Reported conversion rose from the mid-70s to about 90% (new) and about 95% (repeat)",
     },
     impact:
-      "Attributed failures to **internal, gateway, partner-SLA or user** causes and routed each to its owner. Quantify: **[X]%** lift, **[₹Y]** disbursals unblocked per month.",
+      "Reported rates rose by roughly **10–15 pp** (new users) and **20–25 pp** (repeat) after the calculation was corrected. These are **reporting** changes, so leadership now sees true conversion and can target real drop-off.",
   },
   {
-    id: "voice-bot",
-    title: "Pre-due-date calling: IVR → voice bot",
-    tag: "Collections · Ops experiment",
-    headline: { label: "Repayment-rate lift", value: null, suffix: " pp", decimals: 1 },
+    id: "mcm-v3",
+    title: "Risk-tiered pre-due-date messaging policy (MCM v3)",
+    tag: "Collections · Policy analysis",
+    headline: { label: "Scheduled messages per borrower, by risk tier", value: null, text: "−15% to −65%" },
     context:
-      "Reminder calls before the due date are a cheap lever on **on-time repayment**. IVR was the default channel; the root-cause analysis suggested borrowers were not engaging with it.",
+      "Every borrower got the same pre-due-date message schedule. Product moved to a **risk-tiered policy** that sends fewer messages to lower-risk borrowers. I ran the pre-live analysis and the post-live impact readouts.",
     hypothesis:
-      "**H1:** a conversational **voice bot** raises answer-and-engage rate over IVR, which raises on-time repayment among reminded borrowers.",
-    stack: ["**SQL**", "**BigQuery / ClickHouse**", "Cohort analysis", "Power BI"],
+      "**H1:** lower-risk borrowers cure just as well with fewer messages, which cuts communication cost with no loss in repayment.",
+    stack: ["**SQL**", "**ClickHouse**", "**Tableau**", "Cohort analysis"],
     metrics: {
-      primary: "**On-time repayment rate** within due date + grace",
-      secondary: ["Call connect rate", "Engagement (call duration > N s)"],
-      guardrail: ["Cost per call", "Complaint / opt-out rate"],
+      primary: "**Final cure rate** (≤ 0 DPD), month over month, by risk tier",
+      secondary: ["Scheduled messages per borrower by tier"],
+      guardrail: ["Cure rate for medium- and high-risk tiers"],
     },
     stats: {
-      test: "Randomised split by borrower, two-proportion z-test",
-      alpha: "α = 0.05",
-      power: "Power = [add], MDE = [add] pp",
-      result: "p = [add], 95% CI = [add]",
+      test: "Before/after comparison by risk tier (not randomised)",
+      alpha: "No significance test run",
+      power: "n/a",
+      result: "Confounders: rollout template issues, a legacy SMS campaign, IVR timeouts",
     },
     impact:
-      "Moved the channel from IVR to voice bot. Quantify: **[X] pp** repayment lift, **[₹Y]** saved or collected per cycle.",
+      "Scheduled messages fell by roughly **15–65%** depending on tier. Low-risk cure moved by **under 1 pp**. I flagged a **1–3 pp** cure decline in the medium-risk tier and **recommended adding messages from DPD −3 to −1**.",
   },
   {
-    id: "field-agent",
-    title: "Field-agent app funnels & SLA views",
-    tag: "Instrumentation · Data quality",
-    headline: { label: "Events with schema-valid payloads", value: null, suffix: "%", decimals: 0 },
+    id: "ivr-timeouts",
+    title: "Pre-due-date cure decline and IVR timeouts",
+    tag: "Collections · Root-cause analysis",
+    headline: { label: "Pre-due-date IVR calls ending in timeout", value: null, text: "40–50%" },
     context:
-      "Field agents use a mobile app whose behaviour differs **across app versions**. Without clean events, version-level SLA and funnel views were unreliable.",
+      "Pre-due-date cure fell in early September against August, after changes to messaging coverage and a rise in IVR call failures.",
     hypothesis:
-      "**H1:** a share of apparent SLA breaches come from tracking gaps in older app versions, not agent behaviour.",
-    stack: ["**Event instrumentation**", "**SQL**", "**Grafana**", "Data-quality checks"],
+      "**H1:** the decline came from **two overlapping causes**, reduced messaging coverage and IVR calls timing out, and not from borrower behaviour.",
+    stack: ["**SQL**", "**ClickHouse**", "**Tableau**", "Call-log analysis"],
     metrics: {
-      primary: "**SLA adherence** by app version",
-      secondary: ["Funnel step conversion by version", "Event volume per active agent"],
-      guardrail: ["Duplicate-event rate", "Null-property rate"],
+      primary: "**Pre-due-date cure rate**",
+      secondary: ["Final cure rate (≤ 0 DPD)", "IVR timeout share of call logs"],
+      guardrail: ["Coverage of messaging by borrower tier"],
     },
     stats: {
-      test: "Descriptive plus version-level proportion comparison",
-      alpha: "α = 0.05",
-      power: "n/a (observational)",
-      result: "Report effect sizes with CIs",
+      test: "Period comparison, early September vs August (not randomised)",
+      alpha: "No significance test run",
+      power: "n/a",
+      result: "Pre-due-date cure fell by 1–2 pp; final cure fell by under 1 pp",
     },
     impact:
-      "Teams act on **accurate** SLA numbers. Quantify: **[X]** false breaches removed, **[Y] hrs/week** of manual reconciliation saved.",
+      "Traced a **1–2 pp** pre-due-date cure drop to coverage gaps and **40–50% IVR timeouts**, and gave operations a concrete failure to fix while the team moved pre-due-date calling to a **voice bot**.",
+  },
+  {
+    id: "bot-data-quality",
+    title: "Bot coverage and duplicate call-log fixes",
+    tag: "Data quality · Instrumentation",
+    headline: { label: "Active cases pushed to the bot after the ingestion fix (up from roughly 70%)", value: 100, suffix: "%" },
+    context:
+      "Bot-calling metrics looked wrong. Coverage was under-reported and call volumes were inflated, so teams were making decisions on bad numbers.",
+    hypothesis:
+      "**H1:** the gaps were **pipeline faults**: same-day surrendered cases were never fetched, an API cap limited pushes, and vendor logs contained duplicates.",
+    stack: ["**SQL**", "**ClickHouse**", "**Tableau**", "Data-quality checks"],
+    metrics: {
+      primary: "**Share of active cases pushed** to the bot",
+      secondary: ["Reported bot coverage", "Duplicate-log rate by user"],
+      guardrail: ["Reconciliation against vendor records"],
+    },
+    stats: {
+      test: "Reconciliation against source and vendor records",
+      alpha: "n/a (data-quality audit)",
+      power: "n/a",
+      result: "One user showed about 4x more calls in our database than in the vendor's records; over 90% of users had duplicates on one day",
+    },
+    impact:
+      "Fixed the ingestion gap and raised the API cap by nearly **3x**, taking pushes from roughly **70% to 100%** of active cases. Duplicate logs were reported to engineering and corrected so **call-churn metrics** stop overstating volume.",
   },
 ]
 
@@ -126,5 +152,5 @@ export const pipelineNodes = [
   { id: "app", label: "App events", note: "Instrumented user and agent events from the consumer and field-agent apps." },
   { id: "warehouse", label: "ClickHouse / BigQuery", note: "Raw events land here; queried with SQL window functions." },
   { id: "models", label: "SQL models", note: "Funnel, cohort and SLA definitions kept as versioned queries, with data-quality checks." },
-  { id: "bi", label: "Grafana / Power BI", note: "Dashboards and weekly OKR reporting for product and operations." },
+  { id: "bi", label: "Tableau", note: "Dashboards and weekly OKR reporting for product and operations." },
 ]

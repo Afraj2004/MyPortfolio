@@ -14,7 +14,8 @@ function rich(text: string): ReactNode {
 }
 
 function MetricValue({ metric }: { metric: Metric }) {
-  if (metric.value === null) return <span className="metric-todo">[ add metric ]</span>
+  if (metric.text) return <span className="count-up">{metric.text}</span>
+  if (metric.value === null) return null
   return <CountUp value={metric.value} prefix={metric.prefix} suffix={metric.suffix} decimals={metric.decimals} />
 }
 
