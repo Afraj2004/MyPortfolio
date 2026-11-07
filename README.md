@@ -1,6 +1,6 @@
 # Afraj Khan — Product Analyst Portfolio
 
-Live: https://myportfolio-ten-rho-99.vercel.app/
+Live: https://afraj-khan-portfolio.vercel.app/
 
 Built with Next.js (App Router), React, TypeScript, Tailwind CSS v4 and Framer Motion.
 
