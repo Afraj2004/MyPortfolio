@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion"
-import { CalendarCheck, ChevronUp, Lock, Trophy } from "lucide-react"
+import { CalendarCheck, ChevronUp, Lock, Trophy, X } from "lucide-react"
 import { ACHIEVEMENTS, useProgress, type AchievementId } from "@/components/gamification/progress-provider"
 import { Button } from "@/components/ui/button"
 
@@ -12,7 +12,10 @@ const SCHEDULE_HREF =
 export function HiringDashboard() {
   const { score, done } = useProgress()
   const [open, setOpen] = useState(false)
+  const [closed, setClosed] = useState(false)
   const unlocked = score >= 100
+
+  if (closed) return null
 
   return (
     <LazyMotion features={domAnimation}>
@@ -36,6 +39,10 @@ export function HiringDashboard() {
             </m.ul>
           ) : null}
         </AnimatePresence>
+
+        <button type="button" className="hm-close" onClick={() => setClosed(true)} aria-label="Close hiring progress">
+          <X aria-hidden="true" />
+        </button>
 
         <button
           type="button"

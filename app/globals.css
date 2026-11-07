@@ -1198,3 +1198,8 @@ html[data-motion-ready="true"] [data-reveal][data-revealed="true"] {
 .hm-list li[data-done="true"] { color: var(--foreground); }
 .hm-list b { margin-left: auto; }
 .education-score { margin-top: .35rem; font-weight: 700; color: var(--primary); }
+.hm-dashboard { position: fixed; }
+.hm-close { position: absolute; top: .4rem; right: .4rem; width: 1.5rem; height: 1.5rem; display: grid; place-items: center; border-radius: 999px; color: var(--muted-foreground); cursor: pointer; }
+.hm-close:hover { background: var(--muted); }
+.hm-close svg { width: .85rem; height: .85rem; }
+.hm-header { padding-right: 1.75rem; }
