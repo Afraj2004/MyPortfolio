@@ -73,8 +73,9 @@ export const portfolioContent = {
     title: "About",
     eyebrow: "Curious about people, systems and what happens next",
     paragraphs: [
-      "I'm a Product Analyst at a consumer-lending app in Bengaluru, working across product, engineering, operations and business teams. My work sits where data meets product decisions: owning funnels end to end, instrumenting user journeys, running root-cause analyses, and working with payment and lending partners to work out whether a problem is ours or theirs.",
-      "Outside work, I build product prototypes to take ideas from concept to a live product. I'm now looking to move into Product Management in fintech and consumer tech.",
+      "I'm a Product Analyst working at the intersection of data, product and operations in fintech. At Olyv (UpMove Capital), I work on repayment and collections: analysing pre-due-date MCM policy, diagnosing cure declines and MCM failures, tracking conversion metrics (such as eMandate), and fixing data-quality gaps. I work in SQL, ClickHouse and Tableau, and I report weekly Collections OKRs to product and business teams.",
+      "Previously I interned at the Bureau of Indian Standards, analysing compliance and certification data. I was a finalist in the ZS Campus Beats Case Challenge.",
+      "I'm looking to move into Product Management in fintech and consumer tech. Outside work, I build product prototypes to take ideas from concept to a live product.",
     ],
     emailLabel: "Drop a mail",
     achievementsTitle: "Beyond the day job",
@@ -84,8 +85,20 @@ export const portfolioContent = {
         description: "Recognised as a finalist in a national business case competition.",
       },
       {
-        title: "Overall Coordinator, LIGHT RAIPUR",
-        description: "Led a student team running cross-campus outreach and technical events.",
+        title: "Overall Coordinator, LiGHT Raipur",
+        description: "Led a student team running cross-campus outreach and technical events (Jan 2024 to May 2025).",
+      },
+      {
+        title: "Head Management, Abhinay The Dramatics Club",
+        description: "Head of management for the club at NIT Raipur (Apr 2024 to May 2025).",
+      },
+      {
+        title: "Head Coordinator, Go Green NIT Raipur",
+        description: "Head coordinator of the Go Green team at NIT Raipur (May 2024 to Apr 2025).",
+      },
+      {
+        title: "Certificate of Participation, E-Commerce Data Science (Level 1.1)",
+        description: "Participation certificate in an e-commerce data science programme.",
       },
     ],
   },
@@ -113,9 +126,18 @@ export const portfolioContent = {
         title: "Data Analyst Intern",
         company: "Bureau of Indian Standards (BIS)",
         location: "Raipur",
-        dates: "May to July 2024",
+        dates: "Summer 2024 · 2-month paid internship",
         bullets: [
           "Analysed compliance and certification data to flag quality anomalies across regional manufacturing units, and turned field surveillance data into structured reports.",
+        ],
+      },
+      {
+        title: "Summer Intern",
+        company: "Steel Authority of India Limited (SAIL)",
+        location: "Bhilai",
+        dates: "May to June 2023",
+        bullets: [
+          "Worked across plant sites at the Bhilai Power Plant, including the research laboratory, rail mills and coke ovens.",
         ],
       },
     ],

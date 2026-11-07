@@ -1,10 +1,10 @@
-import { Award, UsersRound } from "lucide-react"
+import { Award, BadgeCheck, Drama, Leaf, UsersRound } from "lucide-react"
 import { portfolioContent } from "@/data/content"
 import { buttonVariants } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SectionHeading } from "@/components/sections/section-heading"
 
-const achievementIcons = [Award, UsersRound]
+const achievementIcons = [Award, UsersRound, Drama, Leaf, BadgeCheck]
 
 export function AboutSection() {
   const { about, socials } = portfolioContent
